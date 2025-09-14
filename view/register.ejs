@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="bg-blue-100">
+    <div class="flex justify-center">
+      <section
+        class="flex justify-center flex-col items-center p-[30px] w-[60%] border-[2px] mt-[9%] ml-[12%] mr-[12%]"
+      >
+        <h1 class="text-[30px] font-[800]">Sign-Up page</h1>
+
+        <form
+          action="/register"
+          onsubmit="return validateform()"
+          name="myform"
+          method="POST"
+          class="w-[80%]"
+        >
+          <div>
+            <input
+              class="p-[6px] m-[2px] border-[2px] w-[100%]"
+              placeholder="enter your name"
+              type="text"
+              name="name"
+            />
+          </div>
+          <p id="alertname" class="m-[3px]"></p>
+          <div>
+            <input
+              class="p-[6px] m-[2px] border-[2px] w-[100%]"
+              placeholder="enter email"
+              type="email"
+              id="email"
+              name="username"
+            />
+          </div>
+          <p id="alertemail" class="m-[3px]"></p>
+          <div>
+            <input
+              class="p-[6px] m-[2px] border-[2px] w-[80%]"
+              placeholder="enter password"
+              type="password"
+              name="userpassword"
+              id="password"
+            />
+
+            <span id="button" class="bg-[green] p-[6px] border-[2px] w-[100%]"
+              >Show</span
+            >
+            <p id="alertpassword" class="m-[3px]"></p>
+          </div>
+          <p class="text-[19px]">
+            you are Login :<a class="text-[blue]" href="/login">Login</a>
+          </p>
+          <button type="submit" class="bg-[red] p-[6px] m-[6px] border-[2px]">
+            Register
+          </button>
+        </form>
+      </section>
+    </div>
+  </body>
+
+  <script>
+    //show hide and show password...
+    let pass = document.getElementById("password");
+    let button = document.getElementById("button");
+
+    button.onclick = function () {
+      if (pass.type == "password") {
+        pass.type = "text";
+      } else {
+        pass.type = "password";
+      }
+    };
+
+//validation
+function validateform() {
+    let name = document.myform.name.value.trim();
+    let email = document.myform.username.value.trim();
+    let password = document.myform.userpassword.value.trim();
+
+    let valid = true;
+
+    // Reset alerts
+    document.getElementById("alertname").innerHTML = "";
+    document.getElementById("alertemail").innerHTML = "";
+    document.getElementById("alertpassword").innerHTML = "";
+
+    // Name validation
+    if (name.length < 3) {
+      document.getElementById("alertname").innerHTML =
+        "Name must be at least 3 characters long";
+      document.getElementById("alertname").classList.add("text-red-600");
+      valid = false;
+    }
+
+    // Email validation
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      document.getElementById("alertemail").innerHTML = "Enter a valid email";
+      document.getElementById("alertemail").classList.add("text-red-600");
+      valid = false;
+    }
+
+    // Password validation
+    let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,8}$/;
+    if (!passwordPattern.test(password)) {
+      document.getElementById("alertpassword").innerHTML =
+        "Password must have 1 uppercase, 1 lowercase, 1 number, 6–8 chars";
+      document.getElementById("alertpassword").classList.add("text-red-600");
+      valid = false;
+    }
+
+    return valid; // form submits only if true
+  }
+
+
+ 
+  </script>
+</html>
